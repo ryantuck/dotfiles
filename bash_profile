@@ -106,7 +106,6 @@ notes() {
     vim ~/Dropbox/notes/$1.md
 }
 
-
 # -----------------------------------------
 # Constants
 # -----------------------------------------
@@ -226,3 +225,14 @@ if [ -f '/Users/${USERNAME}/google-cloud-sdk/path.bash.inc' ]; then . '/Users/${
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/${USERNAME}/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/${USERNAME}/google-cloud-sdk/completion.bash.inc'; fi
 
+
+# spit out the cost of a BQ query
+bq-cost() {
+    bytes="$( bq query --dry_run --use_legacy_sql=false < $1 | grep -oP '[0-9]+')"
+    dollars="$( echo "scale=12; 5*$bytes/(10^12)" | bc )"
+    if [[ $dollars == '.00'* ]]; then
+        echo "< $ 0.01"
+    else
+        echo "$ $dollars"
+    fi
+}
