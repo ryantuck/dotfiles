@@ -8,9 +8,14 @@ Plugin 'ambv/black'
 " Plugin 'plasticboy/vim-markdown'
 Plugin 'rhysd/vim-gfm-syntax'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'preservim/nerdtree'
 Plugin 'evanram/mandevilla'
+Plugin 'itchyny/vim-highlighturl'
+Plugin 'junegunn/goyo.vim'
 Plugin 'flazz/vim-colorschemes'
+" Plugin 'ycm-core/YouCompleteMe' "This shit sucks
 Plugin 'freitass/todo.txt-vim'
+Plugin 'jidn/vim-dbml'
 Plugin 'gmarik/vundle'
 Plugin 'lepture/vim-jinja'
 Plugin 'shmup/vim-sql-syntax'
@@ -26,12 +31,14 @@ call vundle#end()
 " NOTE: could prune these
 
 set autoindent
+set autochdir " switch dir
 set background=dark
 set backspace=2
 set cindent
 set expandtab
 set ignorecase
-set incsearch
+set incsearch " incremental search
+set hlsearch "highlight search term
 set linebreak
 set mouse=a
 set nocompatible
@@ -60,6 +67,13 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
+" Populate ending brace(s), then navigate back to insert mode
+" e.g. inoremap x y<Esc>...
+" NOTE: would be cool to conditionally do this for underscores
+inoremap [[ [[]]<Esc>hi
+inoremap {{ {{  }}<Esc>hhi
+inoremap {% {%  %}<Esc>hhi
+
 " map things
 imap jj <Esc>
 imap <C-w><C-w> <Esc><C-w><C-w>
@@ -77,6 +91,7 @@ autocmd Filetype lkml setlocal shiftwidth=2 | set tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 | set tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 | set tabstop=2
 autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
+autocmd Filetype css setlocal shiftwidth=2 | set tabstop=2
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -94,6 +109,9 @@ highlight ColorColumn ctermbg=darkgrey
 autocmd Filetype python setlocal cc=88
 autocmd Filetype sql setlocal cc=88
 
+" define stuff
+autocmd Filetype markdown setlocal columns=80
+
 " Black formatting
 let g:black_skip_string_normalization=1
 
@@ -107,3 +125,14 @@ set suffixesadd+=.sql " look for md files when using `gf`
 set isfname-=# " ignore # when looking for files using `gf`
 set isfname-=+ " ignore # when looking for files using `gf`
 
+" gx broke with a new version of vim
+nmap gx yiW:!open <cWORD><CR> <C-r>" & <CR><CR>
+
+" folding by default for markdown files
+let g:markdown_folding=1
+
+" go light mode
+fu! Light()
+    set background=light
+    colorscheme Atelier_DuneLight
+endfunction
