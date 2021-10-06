@@ -1,0 +1,6 @@
+todo level-0,2,
+todo vim, history,
+todo ctrl-p,r,
+todo taskfile
+todo level-0/computer-setup
+

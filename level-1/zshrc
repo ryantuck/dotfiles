@@ -1,0 +1,16 @@
+# ~/.zshrc
+
+# reload
+alias szrc="source ~/.zshrc" # reload ~/.zshrc
+
+# utils
+alias l="ls -1F" # cleaner ls
+
+# git
+alias gs="git status"
+alias gd="git diff"
+alias gds="git diff --staged"
+
+# python
+alias p="python"
+eval "$(pyenv init --path)" # load pyenv by default
