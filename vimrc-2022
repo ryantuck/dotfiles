@@ -1,0 +1,38 @@
+set nocompatible " ??
+filetype off 
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ambv/black'
+
+call vundle#end()
+
+syntax on " syntax highlighting
+set clipboard=unnamed " copy/paste to clipboard
+set backspace=indent,eol,start " avoid weird backspace issues
+filetype plugin indent on " indent based on filetype?
+set expandtab
+set shiftwidth=4
+set smarttab
+set number " line numbers
+set ruler " col,row in status bar
+
+" fix indent and wrapping, for txt files at least
+set linebreak
+set breakindent
+
+" TODO fix tabs for Makefile, etc
+" TODO ale
+
+
+" Treat vim clipboard more like a normal clipboard, and avoid
+" overwriting the register after paste / delete / sub.
+" See :help map-modes for more.
+xnoremap p pgvy
+xnoremap d "_d
+xnoremap s "_s
+nnoremap dd "_dd
+vnoremap s "_s
+
+" NOTE If :Black stops working, see here https://github.com/psf/black/issues/1379#issuecomment-636284097
